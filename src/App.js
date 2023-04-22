@@ -12,6 +12,7 @@ function App() {
           <Route path='/ProfilePage' element={<ProfilePage />}/>
         </Routes>
       </BrowserRouter>
+      
     </div>
   );
 }
