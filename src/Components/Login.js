@@ -20,20 +20,28 @@ const Login = () => {
                 password: password,
             })
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.message !== "Invalid credentials") {
-                    console.log(data)
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('id', data.id);
-                    window.location.href = "/profilePage"
+            .then(res => {
+                if (res.status == 200) {
+                    res.json()
+                        .then(data => {
+                            console.log(data);
+                            if (data.message !== "Invalid credentials") {
+                                console.log(data)
+                                localStorage.setItem('token', data.token);
+                                localStorage.setItem('id', data.id);
+                                window.location.href = "/profilePage"
+                            }
+                            else {
+                                alert(data.message);
+                            }
+                        })
                 }
-                else {
-                    alert(data.message);
+                else{
+                    throw new Error(res.status);
                 }
             })
             .catch(err => {
-                console.log(err)
+                alert(err)
             })
 
     }
